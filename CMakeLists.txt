@@ -115,15 +115,15 @@ if (WIN32)
     )
 endif()
 
-add_executable(xengpuminer
+add_executable(xen
 gpuMiner/src/argon2-gpu-bench/cpuexecutive.cpp
 gpuMiner/src/argon2-gpu-bench/cudaexecutive.cpp
 gpuMiner/src/argon2-gpu-bench/openclexecutive.cpp
 gpuMiner/src/argon2-gpu-bench/benchmark.cpp
 gpuMiner/src/argon2-gpu-bench/main.cpp
 )
-target_include_directories(xengpuminer PRIVATE gpuMiner/src/argon2-gpu-bench)
-target_link_libraries(xengpuminer
+target_include_directories(xen PRIVATE gpuMiner/src/argon2-gpu-bench)
+target_link_libraries(xen
     argon2-cuda argon2-opencl argon2 -lOpenCL
 )
 
