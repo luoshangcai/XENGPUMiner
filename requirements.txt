@@ -1,4 +1,6 @@
 passlib
 requests
 tqdm
-argon2_cffi 
+argon2_cffi
+psutil
+pynvml
