@@ -95,7 +95,7 @@ def update_memory_cost_periodically():
         updated_memory_cost = fetch_difficulty_from_server()
         if updated_memory_cost != memory_cost:
             write_difficulty_to_file(updated_memory_cost)
-            print(f" Updating difficulty to {updated_memory_cost}")
+            print(f"Updating difficulty to {updated_memory_cost}")
             memory_cost = updated_memory_cost
         time.sleep(20)  # Fetch every # seconds
 
