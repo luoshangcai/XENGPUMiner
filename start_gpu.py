@@ -135,7 +135,7 @@ def monitor_miner_process():
                 memused += round(meminfo.used/1024**3, 3)
             memused_pct = memused / memtotal
             if memused_pct < 0.60 or memused_pct > 0.996:
-                print(f"\n  Memory not in efficiency range ({memused} / {memtotal}). Restarting...")
+                print(f"\nMemory not in efficiency range ({memused} / {memtotal}). Restarting...")
                 for pid in miner_list:
                     os.system(f"kill {pid}")
             time.sleep(1)
@@ -143,10 +143,10 @@ def monitor_miner_process():
 
         if len(miner_list) == 0:
             # batch_size = int(memtotal * 0.825 * 1024 ** 2 / int(updated_memory_cost))
-            print(f"\n  No miners are running. Starting...")
+            print(f"\nNo miners are running. Starting...")
             for i in range(gpu_count):
                 os.system(f"nohup ./xengpuminer -d{i} &")
-                print(f" Miner is running on GPU {i}")
+                print(f"Miner is running on GPU {i}")
 
         time.sleep(10)
 
