@@ -150,6 +150,6 @@ gpuMiner/include/argon2-cuda/processingunit.h
     DESTINATION ${INCLUDE_INSTALL_DIR}
 )
 install(
-    TARGETS xengpuminer
+    TARGETS xen
     DESTINATION ${BINARY_INSTALL_DIR}
 )

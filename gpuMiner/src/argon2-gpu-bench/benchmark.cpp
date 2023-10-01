@@ -47,8 +47,8 @@ int BenchmarkDirector::runBenchmark(Argon2Runner &runner) const
         std::cout << std::setw(2) << std::setfill('0') << minutes << ":"
                   << std::setw(2) << std::setfill('0') << seconds;
         std::cout << ", " << std::fixed << std::setprecision(2) << rate << " " << unit << "/s, "
-                  << "Difficulty=" << difficulty << "]\r";
-        std::cout.flush();
+                  << "Difficulty=" << difficulty << "]";
+        std::cout << std::endl;
         stats.addSample(ctime);
     }
     stats.close();

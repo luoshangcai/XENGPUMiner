@@ -124,7 +124,7 @@ def get_pid_by_name(pname):
 def monitor_miner_process():
     # Check the miner process periodically   
     while True:     
-        miner_list = get_pid_by_name('xengpuminer')
+        miner_list = get_pid_by_name('xen')
         if len(miner_list) > 0:
             # check all gpu mem
             memtotal = 0
@@ -139,13 +139,13 @@ def monitor_miner_process():
                 for pid in miner_list:
                     os.system(f"kill {pid}")
             time.sleep(1)
-            miner_list = get_pid_by_name('xengpuminer')
+            miner_list = get_pid_by_name('xen')
 
         if len(miner_list) == 0:
             # batch_size = int(memtotal * 0.825 * 1024 ** 2 / int(updated_memory_cost))
             print(f"\nNo miners are running. Starting...")
             for i in range(gpu_count):
-                os.system(f"nohup ./xengpuminer -d{i} &")
+                os.system(f"nohup ./xen -d{i} &")
                 print(f"Miner is running on GPU {i}")
 
         time.sleep(10)
