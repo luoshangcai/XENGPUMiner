@@ -145,7 +145,7 @@ def monitor_miner_process():
             # batch_size = int(memtotal * 0.825 * 1024 ** 2 / int(updated_memory_cost))
             print(f"\nNo miners are running. Starting...")
             for i in range(gpu_count):
-                os.system(f"nohup ./xen -d{i} &")
+                os.system(f"nohup ./xen -d{i} > miner_stat_{i}.out &")
                 print(f"Miner is running on GPU {i}")
 
         time.sleep(10)
