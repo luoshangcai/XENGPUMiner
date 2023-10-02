@@ -301,7 +301,7 @@ def monitor_blocks_directory():
                 # submit block using current mining account
                 k, target, hashed = submit_block(mining_account, data)
                 os.remove(filepath)
-                if target == 'XEN11':
+                if target == 'XEN11' and len(task_list):
                     task_list[0][1] -= 1
                 pbar.update(1)
 
