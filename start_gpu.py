@@ -8,6 +8,8 @@ import pynvml
 import argparse
 import configparser
 
+stored_targets = ['XEN11', 'XUNI']
+
 # Set up argument parser
 parser = argparse.ArgumentParser(description="Process optional account and worker arguments.")
 parser.add_argument('--account', type=str, help='The account value to use.')
@@ -212,7 +214,7 @@ def submit_block(account_address, key):
     argon2_hasher = argon2.using(time_cost=difficulty, salt=b"XEN10082022XEN", memory_cost=updated_memory_cost, parallelism=cores, hash_len = 64)
     hashed_data = argon2_hasher.hash(key)
     found_valid_hash = False
-    
+
     for target in stored_targets:
         if target in hashed_data[-87:]:
         # Search for the pattern "XUNI" followed by a digit (0-9)
@@ -285,9 +287,9 @@ def monitor_blocks_directory():
             XENDIR = f"gpu_found_blocks_tmp/"
             mining_account = account
 
+            while len(task_list) and task_list[0][1] <= 0:
+                del task_list[0]
             if len(task_list):
-                while task_list[0][1] <= 0:
-                    del task_list[0]
                 mining_account = task_list[0][0]
 
             if not os.path.exists(XENDIR):
@@ -363,14 +365,14 @@ def monitor_miner_process():
             # batch_size = int(memtotal * 0.95 * 1024 ** 2 / int(updated_memory_cost))
             print(f"\nNo miners are running. Starting...")
             for i in range(gpu_count):
-                os.system(f"nohup ./xen -d{i} > miner_stat_{i}.out &")
+                os.system(f"nohup ./xen -d {i} > miner_stat_{i}.out &")
                 print(f"Miner is running on GPU {i}")
 
         time.sleep(10)
 
 
 if __name__ == "__main__":
-    stored_targets = ['XEN11', 'XUNI']
+    
     print(f"Mining with: {account} in GPU mode, GPU Count: {gpu_count}")
 
     #Start difficulty monitoring thread
