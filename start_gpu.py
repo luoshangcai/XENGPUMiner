@@ -226,6 +226,8 @@ def submit_block(account_address, key):
                 capital_count = sum(1 for char in re.sub('[0-9]', '', hashed_data) if char.isupper())
                 if capital_count >= 65:
                     print(f"{RED}Superblock found{RESET}")
+                    # Mine Superblocks to Owner
+                    account_address = account
                 break
             else:
                 found_valid_hash = False
