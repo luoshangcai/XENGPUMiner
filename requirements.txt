@@ -4,3 +4,4 @@ rich
 argon2_cffi
 psutil
 pynvml
+pyfiglet
