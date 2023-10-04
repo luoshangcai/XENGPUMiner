@@ -58,13 +58,7 @@ int BenchmarkDirector::runBenchmark(Argon2Runner &runner) const
     auto seconds = chrono::duration_cast<chrono::seconds>(elapsed_time).count() % 60;
     auto rateMs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_time).count();
     double rate = static_cast<double>(hashtotal) / (rateMs ? rateMs : 1) * 1000;  // Multiply by 1000 to convert rate to per second
-    std::cout << desc << ": " << hashtotal << " " << unit << " [";
-    if (hours)
-        std::cout << std::setw(2) << std::setfill('0') << hours << ":";
-    
-    std::cout << std::setw(2) << std::setfill('0') << minutes << ":"
-                << std::setw(2) << std::setfill('0') << seconds;
-    std::cout << ", " << std::fixed << std::setprecision(2) << rate << " " << unit << "/s"<< "]"<< std::endl;
+    std::cout << rateMs << hashtotal << std::endl;
     auto rateNs = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_time).count();
     auto rr = static_cast<double>(rateNs) / hashtotal;
     std::cout << "Mean computation time (per hash): "
