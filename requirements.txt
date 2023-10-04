@@ -1,6 +1,6 @@
 passlib
 requests
-tqdm
+rich
 argon2_cffi
 psutil
 pynvml
