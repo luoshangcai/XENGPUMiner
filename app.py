@@ -506,7 +506,9 @@ if __name__ == "__main__":
         # Define Components
         def update_layout_general():
             blockcnt = NORMAL_BLKCNT + SUPER_BLKCNT
-            blockrate = ((datetime.now().timestamp() - RUNNING_START) / 60) / (blockcnt if blockcnt > 0 else 1)
+            uptime_min = (datetime.now().timestamp() - RUNNING_START) / 60
+            blockrate = uptime_min / (blockcnt if blockcnt > 0 else 1)
+            bpd = blockcnt * (1440 / uptime_min)
             
             General = Table(expand=True, box=box.SIMPLE, show_header=False)
             General.add_column("Item")
@@ -517,6 +519,7 @@ if __name__ == "__main__":
             General.add_row("Difficulty", str(UPDATED_MEMORY_COST))
             General.add_row("Hash Rate", str(round(HASHRATE_SUM, 2)))
             General.add_row("min / block", str(round(blockrate, 2)))
+            General.add_row("est. blocks / day", str(round(bpd, 0)))
             return General
 
         
