@@ -501,7 +501,7 @@ if __name__ == "__main__":
 
         layout["banner"].size = 15
         layout["info"].size = 10
-        layout["logs"].size = 6
+        layout["logs"].size = 8
 
         # Define Components
         def update_layout_general():
@@ -556,7 +556,7 @@ if __name__ == "__main__":
         def update_layout_blocklist():
             blocks = []
             if len(MINED_BLOCKS):
-                for block in reversed(MINED_BLOCKS[-40:]):
+                for block in reversed(MINED_BLOCKS[-200:]):
                     t = Text(block[0].split(" ")[-1])
                     style = "green"
                     if block[1] == "XUNI":
@@ -589,7 +589,7 @@ if __name__ == "__main__":
             Logs.add_column("Time", ratio=2)
             Logs.add_column("Type", ratio=1)
             Logs.add_column("Message", ratio=6)
-            for log in LOGS[-5:]:
+            for log in LOGS[-8:]:
                 style = "green"
                 if log[0] == 'Error':
                     style = "red"
