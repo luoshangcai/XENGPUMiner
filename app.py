@@ -37,6 +37,7 @@ CORES = int(CONFIG['Settings']['cores'])
 SERVER_URL = CONFIG['Settings']['server_url']
 
 UPDATED_MEMORY_COST = 10000 # just initialize it
+GPU_COST = float(CONFIG['Settings']['gpu_cost'])
 
 # Gpu info
 pynvml.nvmlInit()
@@ -461,17 +462,14 @@ if __name__ == "__main__":
         fig = Figlet(font='roman', width=40)
 
         banner_ascii = [
-"`8.`8888.      ,8' 8 8888888888   b.             8          ,8.       ,8.           8 8888 b.             8 8 8888888888   8 888888888o.  ",
-" `8.`8888.    ,8'  8 8888         888o.          8         ,888.     ,888.          8 8888 888o.          8 8 8888         8 8888    `88. ",
-"  `8.`8888.  ,8'   8 8888         Y88888o.       8        .`8888.   .`8888.         8 8888 Y88888o.       8 8 8888         8 8888     `88 ",
-"   `8.`8888.,8'    8 8888         .`Y888888o.    8       ,8.`8888. ,8.`8888.        8 8888 .`Y888888o.    8 8 8888         8 8888     ,88 ",
-"    `8.`88888'     8 888888888888 8o. `Y888888o. 8      ,8'8.`8888,8^8.`8888.       8 8888 8o. `Y888888o. 8 8 888888888888 8 8888.   ,88'",
-"    .88.`8888.     8 8888         8`Y8o. `Y88888o8     ,8' `8.`8888' `8.`8888.      8 8888 8`Y8o. `Y88888o8 8 8888         8 888888888P'  ",
-"    8'`8.`8888.    8 8888         8   `Y8o. `Y8888    ,8'   `8.`88'   `8.`8888.     8 8888 8   `Y8o. `Y8888 8 8888         8 8888`8b  ..",
-"   8'  `8.`8888.   8 8888         8      `Y8o. `Y8   ,8'     `8.`'     `8.`8888.    8 8888 8      `Y8o. `Y8 8 8888         8 8888 `8b. .",
-"  8'    `8.`8888.  8 8888         8         `Y8o.`  ,8'       `8        `8.`8888.   8 8888 8         `Y8o.` 8 8888         8 8888   `8b.  ",
-"  8'      `8.`8888. 8 888888888888 8            `Yo ,8'         `         `8.`8888.  8 8888 8            `Yo 8 888888888888 8 8888     `88",
-            " "
+"""
+. __   __ _____ _   _ ___  ____                  .
+. \ \ / /|  ___| \ | ||  \/  (_)                 .
+.  \ V / | |__ |  \| || .  . |_ _ __   ___ _ __  .
+.  /   \ |  __|| . ` || |\/| | | '_ \ / _ \ '__| .
+. / /^\ \| |___| |\  || |  | | | | | |  __/ |    .
+. \/   \/\____/\_| \_/\_|  |_/_|_| |_|\___|_|    .
+"""
         ]
         # Define Layout
         layout = Layout()
@@ -507,19 +505,19 @@ if __name__ == "__main__":
         def update_layout_general():
             blockcnt = NORMAL_BLKCNT + SUPER_BLKCNT
             uptime_min = (datetime.now().timestamp() - RUNNING_START) / 60
-            blockrate = uptime_min / (blockcnt if blockcnt > 0 else 1)
+            blockrate = blockcnt / (uptime_min / 60) / (GPU_COUNT if GPU_COUNT > 0 else 1)
             bpd = blockcnt * (1440 / uptime_min)
+            bcost = GPU_COST / blockrate if blockcnt else 0
             
             General = Table(expand=True, box=box.SIMPLE, show_header=False)
             General.add_column("Item")
             General.add_column("Value")
-            for i in range(2):
-                General.add_row()
             General.add_row("Up Time", uptime())
             General.add_row("Difficulty", str(UPDATED_MEMORY_COST))
             General.add_row("Hash Rate", str(round(HASHRATE_SUM, 2)))
-            General.add_row("min / block", str(round(blockrate, 2)))
-            General.add_row("est. blocks / day", str(round(bpd, 0)))
+            General.add_row("block / h / gpu", str(round(blockrate, 2)))
+            General.add_row("est. blocks / day", str(int(bpd)))
+            General.add_row("cost / block", f"${round(bcost, 4)}")
             return General
 
         
