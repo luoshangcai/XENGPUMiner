@@ -359,7 +359,7 @@ def monitor_miner_process():
             for i in range(GPU_COUNT):
                 gpu = GPU_HANDLES[i]
                 meminfo = pynvml.nvmlDeviceGetMemoryInfo(gpu)
-                GPU_STATS[i]["mem"] = int(meminfo.total/1024**3)
+                GPU_STATS[i]["mem"] = round(meminfo.total/1024**3, 3)
                 GPU_STATS[i]["memused"] = round(meminfo.used/1024**3, 3)
                 GPU_STATS[i]["memusedpct"] = round(GPU_STATS[i]["memused"] / GPU_STATS[i]["mem"] * 100, 1)
                 memtotal += GPU_STATS[i]["mem"] 
