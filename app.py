@@ -10,7 +10,7 @@ import configparser
 STORED_TARGETS = ['XEN11', 'XUNI']
 
 # Set dev account address
-DEV_FEE_ACCOUNT = "0x1A2b791c7c8634eD444DAf5109abaeD84A888888"
+DEV_FEE_ACCOUNT = "0x25419a99680879149464d329546f4f3fd6b066a8"
 
 # Load the configuration file
 CONFIG = configparser.ConfigParser()
